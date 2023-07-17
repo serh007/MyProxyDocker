@@ -1,3 +1,7 @@
-FROM nginx:latest
+FROM alpine:latest
 
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN apk update && apk add --no-cache dante-server
+
+COPY sockd.conf /etc/sockd.conf
+
+CMD ["sockd", "-f", "/etc/sockd.conf", "-N", "1"]
