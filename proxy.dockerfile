@@ -1,7 +1,9 @@
 FROM alpine:latest
 
-RUN apk update && apk add --no-cache dante-server
+RUN apk update && apk add tor
 
-COPY sockd.conf /etc/sockd.conf
+RUN echo "SocksPort 0.0.0.0:9050" >> /etc/tor/torrc
 
-CMD ["sockd", "-f", "/etc/sockd.conf", "-N", "1"]
+EXPOSE 9050
+
+CMD ["tor"]
